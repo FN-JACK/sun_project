@@ -39,7 +39,7 @@
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
-            v-model="keyword"
+            v-model.trim="keyword"
           />
           <button class="sui-btn btn-xlarge btn-danger" type="button" @click="search" >
             搜索
@@ -60,15 +60,16 @@ export default {
   },
   methods:{
     search(){
-      this.$router.push({
-        name:'search',
-        params:{
+      const location = {name:'search'}
+      if(this.keyword){
+        location.params={
           keyword:this.keyword
-        },
-        query:{
+        }
+        location.query={
           keyword1:this.keyword.toUpperCase()
         }
-      })
+      }
+      this.$router.push(location)
     }
   }
   
